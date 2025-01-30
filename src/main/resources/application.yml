@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: claiminsured
+
+server:
+  port: 9090
