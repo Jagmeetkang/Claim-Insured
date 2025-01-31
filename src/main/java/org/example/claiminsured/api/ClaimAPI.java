@@ -1,6 +1,7 @@
 package org.example.claiminsured.api;
 
 
+import org.example.claiminsured.clients.WarrentyClient;
 import org.example.claiminsured.dto.Warrenty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,21 +23,33 @@ public class ClaimAPI {
     @Autowired
     private WebClient webClient;
 
+    @Autowired
+    private WarrentyClient warrentyClient;
+
 
     @GetMapping("/get")
-    public String getDuration(){
+    public Warrenty getDuration(){
 
         //String str = restTemplate.getForObject("http://localhost:8082/warrentyapi/byId/1", String.class);
-        String warrenty = webClient.get().uri("http://localhost:8082/warrentyapi/byId/1")
-                .header("token", "7687g78yg88g9u")
-                .header("username", "adminuser")
-                .header("password" ,"pragra123")
-                .retrieve()
-                .bodyToMono(String.class)
-                .timeout(Duration.ofMillis(10000))
-                .block();
 
+
+//        String warrenty = webClient.get().uri("http://localhost:8082/warrentyapi/byId/1")
+//                .header("token", "7687g78yg88g9u")
+//                .header("username", "adminuser")
+//                .header("password" ,"pragra123")
+//                .retrieve()
+//                .bodyToMono(String.class)
+//                .timeout(Duration.ofMillis(10000))
+//                .block();
+//
+//        return warrenty;
+
+        //Feign client implememntation
+        Warrenty warrenty = warrentyClient.getWarrenty((1));
         return warrenty;
+
+
+
     }
 
     @GetMapping("/getById")
